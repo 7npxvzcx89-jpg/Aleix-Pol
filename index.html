@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aleix&Pol</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <meta name="theme-color" content="#b5d8ff" />
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <h1>Aleix&Pol</h1>
+      <div id="current-user-label" class="user-label">Selecciona usuario</div>
+    </header>
+
+    <main>
+      <section id="user-select-view" class="view active">
+        <h2>¿Quién está usando?</h2>
+        <div class="user-buttons">
+          <button class="btn primary" data-user="A">👴 Abuelo A</button>
+          <button class="btn primary" data-user="F">👵 Abuelo F</button>
+          <button class="btn accent" data-user="Admin">⭐ Padres / Admin</button>
+        </div>
+      </section>
+
+      <section id="calendar-view" class="view">
+        <div class="calendar-header">
+          <button id="btn-prev-month" class="icon-btn">&#9664;</button>
+          <div class="month-label">
+            <span id="month-name"></span>
+            <span id="year-label"></span>
+          </div>
+          <button id="btn-next-month" class="icon-btn">&#9654;</button>
+        </div>
+        <div class="weekday-row">
+          <div>L</div><div>M</div><div>X</div><div>J</div><div>V</div>
+        </div>
+        <div id="calendar-grid" class="calendar-grid"></div>
+        <p class="legend">
+          <span class="badge badge-a">A</span> Abuelo A
+          <span class="badge badge-f">F</span> Abuelo F
+          <span class="badge badge-pending">●</span> Pendiente
+        </p>
+      </section>
+
+      <section id="admin-panel" class="view">
+        <h2>Pendientes de validación</h2>
+        <ul id="pending-list" class="pending-list"></ul>
+        <button id="btn-back-calendar" class="btn secondary full">Volver al calendario</button>
+      </section>
+    </main>
+
+    <div id="bottom-nav">
+      <button id="nav-calendar" class="nav-btn active">📅 Calendario</button>
+      <button id="nav-admin" class="nav-btn">✅ Validar</button>
+    </div>
+  </div>
+
+  <!-- Modal para seleccionar motivo -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal">
+      <h3 id="modal-title">Motivo</h3>
+      <p id="modal-date-label"></p>
+      <div id="modal-content"></div>
+      <div class="modal-actions">
+        <button id="modal-cancel" class="btn secondary">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch(err => {
+          console.log('SW registro fallido', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
